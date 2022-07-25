@@ -1,4 +1,6 @@
 let asignaturas = []
+
+
 function procesos(e) {
     e.preventDefault()
     let nombre= document.getElementById('nombresAsi').value;
@@ -14,22 +16,8 @@ function procesos(e) {
         examen:examen
     }
     
-    if(nombre.trim()==null||nombre.trim()==0){
-        alert('el nombre no es valido');
-        return false
-    }else if(primer.trim()==null||primer.trim()==0){
-        alert('el primer previo no es valido');
-        return false
-    }else if(segund.trim()==null||segund.trim()==0){
-        alert('el segundo previo no es valido');
-        return false
-    }else if(tercer.trim()==null||tercer.trim()==0){
-        alert('el tercer previo no es valido');
-        return false
-    }else if(examen.trim()==null||examen.trim()==0){
-        alert('el examen final no es valido');
-        return false
-    }else if(primer>5.0||primer<0){
+    
+    if(primer>5.0||primer<0){
         alert('el numero es mayor a 5.0 o menor a 0');
         return false
     }else if(segund>5.0||segund<0){
@@ -45,13 +33,15 @@ function procesos(e) {
     asignaturas.push(asig)
     
     definitivatot()
-    agregartodo()
     cambiarColor()
+    agregartodo()
     tabla.style.display = "block"
 }
 function agregartodo() {
     let tab=""
+    let i=0
     asignaturas.forEach((element) => {
+        i++
         
         tab += `
         <tr>
@@ -60,11 +50,11 @@ function agregartodo() {
         <th>${element.segund}</th>
         <th>${element.tercer}</th>
         <th>${element.examen}</th>
-        <th id="definitivatable">${element.definitiva}</th>
+        <th style="background-color: ${element.color};">${element.definitiva}</th>
         </tr>
         </tbody>
         `
-
+        console.log(tab);
     })
 
     let bodyt = document.getElementById('bodyt')
@@ -72,24 +62,29 @@ function agregartodo() {
 
 }
 
+let i=0
+i++
 function cambiarColor(){
-    let dup=document.getElementById('definitivatable')
-    asignaturas.filter(element=>{
-
+    
+    
+    
+    asignaturas.map(element=>{
 
         if(element.definitiva>0.0&&element.definitiva<=2.9){
     
-            dup.style.background="red"
+            element.color="red"
         }else if(element.definitiva>=3.0&&element.definitiva<=3.9){
     
-            dup.style.backgroundColor="yellow"
+            element.color="yellow"
         }else if(element.definitiva>=4.0&&element.definitiva<=5.0){
     
-            dup.style.background="green"
-        }
+            element.color="green"
+        }      
+        
+        
     })
-
 }
+
 
 function definitivatot() {
 
